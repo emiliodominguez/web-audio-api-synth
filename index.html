@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <link rel="stylesheet" href="./style.css" />
+        <title>Piano</title>
+    </head>
+    <body>
+        <main>
+            <div id="keyboard-setup">
+                <label for="volume">Volume</label>
+                <input type="range" id="volume" min="0" max="1" step="0.01" />
+
+                <!-- <label for="vibrato-amount">Vibrato amount</label>
+                <input type="range" id="vibrato-amount" min="0" max="5" step="0.01" value="0" />
+
+                <label for="vibrato-speed">Vibrato speed</label>
+                <input type="range" id="vibrato-speed" min="0" max="30" step="0.01" value="0" />
+
+                <label for="delay">Delay</label>
+                <input type="range" id="delay" min="0" max="1" step="0.01" value="0" /> -->
+
+                <div id="wave-forms"></div>
+            </div>
+
+            <div id="keyboard-keys"></div>
+        </main>
+
+        <script src="./js/script.js" type="module"></script>
+    </body>
+</html>
