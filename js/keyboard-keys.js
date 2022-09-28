@@ -31,6 +31,7 @@ function playNote(frequency) {
  * @returns {OscillatorNode} The note oscillator
  */
 function handleKeyPress(e) {
+    e.currentTarget.classList.add("playing");
     return playNote(+e.currentTarget.dataset.frequency);
 }
 
@@ -39,7 +40,8 @@ function handleKeyPress(e) {
  * @param {MouseEvent} e The event
  * @param {OscillatorNode} note The note oscillator
  */
-function handleKeyRelease(_e, note) {
+function handleKeyRelease(e, note) {
+    e.currentTarget.classList.remove("playing");
     note?.stop();
 }
 
@@ -52,9 +54,12 @@ export function setKeyboardKeys() {
             const key = document.createElement("button");
             let pressedNote;
 
+            // key.textContent = note;
             key.dataset.note = note;
             key.dataset.frequency = frequency;
-            key.textContent = note;
+            key.classList.add("key");
+
+            if (note.includes("#")) key.classList.add("sharp");
 
             key.addEventListener("mousedown", (e) => {
                 pressedNote = handleKeyPress(e);

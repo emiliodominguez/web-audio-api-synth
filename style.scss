@@ -9,17 +9,64 @@
 }
 
 body {
+    display: flex;
+    min-height: 100vh;
     font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+    background-image: radial-gradient(circle, #222, #111);
 }
 
-#wave-forms {
-    label {
-        display: block;
+.keyboard {
+    $width: 1280px;
+
+    min-width: $width;
+    max-width: $width;
+    height: 40vh;
+    margin: auto;
+}
+
+.controls {
+    #wave-forms {
+        label {
+            display: block;
+        }
     }
 }
 
-#keyboard-keys {
-    button {
-        padding: 5px;
+.keys {
+    position: relative;
+    height: 35%;
+
+    .key {
+        $border: 1px;
+        $radius: 2px;
+        $base-color: #fff;
+        $sharp-color: #333;
+
+        border: none;
+        border: $border solid #333;
+        border-radius: 0 0 $radius $radius;
+        cursor: pointer;
+
+        &:not(&.sharp) {
+            width: 2%;
+            height: 100%;
+            background-color: $base-color;
+
+            &.playing {
+                background-image: linear-gradient($base-color, darken($base-color, 5%));
+            }
+        }
+
+        &.sharp {
+            position: absolute;
+            width: 1%;
+            height: 65%;
+            transform: translateX(-50%);
+            background-color: $sharp-color;
+
+            &.playing {
+                background-image: linear-gradient($sharp-color, darken($sharp-color, 10%));
+            }
+        }
     }
 }
