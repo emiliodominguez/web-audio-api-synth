@@ -14,12 +14,19 @@ window.addEventListener("mouseup", () => (mouseDown = false));
  * @param {number} frequency The note frequency
  * @returns {OscillatorNode} The note oscillator
  */
-function playNote(frequency) {
+export function playNote(frequency, velocity = 127) {
     const noteOscillator = audioContext.createOscillator();
+
+    const velocityGainAmount = (1 / 127) * velocity;
 
     noteOscillator.type = mainOscillator.type;
     noteOscillator.frequency.value = frequency;
-    noteOscillator.connect(masterVolume);
+    
+    const velocityGain = audioContext.createGain();
+    velocityGain.gain.value = velocityGainAmount;
+
+    noteOscillator.connect(velocityGain)
+    velocityGain.connect(masterVolume);
     noteOscillator.start();
 
     return noteOscillator;
@@ -42,7 +49,7 @@ function handleKeyPress(e) {
  */
 function handleKeyRelease(e, note) {
     e.currentTarget.classList.remove("playing");
-    note?.stop();
+    note[Object.keys(note)[0]]?.stop();
 }
 
 /**
@@ -52,7 +59,7 @@ export function setKeyboardKeys() {
     for (const octave of notes) {
         for (const [note, frequency] of Object.entries(octave)) {
             const key = document.createElement("button");
-            let pressedNote;
+            let pressedNote = {};
 
             // key.textContent = note;
             key.dataset.note = note;
@@ -62,12 +69,12 @@ export function setKeyboardKeys() {
             if (note.includes("#")) key.classList.add("sharp");
 
             key.addEventListener("mousedown", (e) => {
-                pressedNote = handleKeyPress(e);
+                pressedNote[note] = handleKeyPress(e);
             });
 
             key.addEventListener("mouseenter", (e) => {
                 if (!mouseDown) return;
-                pressedNote = handleKeyPress(e);
+                pressedNote[note] = handleKeyPress(e);
             });
 
             key.addEventListener("mouseup", (e) => handleKeyRelease(e, pressedNote));
