@@ -1,4 +1,4 @@
-import { keyboardKeys, filterAmountControl, filterInfo, filterType } from "./constants/html-elements.js";
+import { keyboardKeys, filterAmountControl, filterInfo, filterType, filterQ, filterGain } from "./constants/html-elements.js";
 import { audioContext, masterVolume, mainOscillator, filter } from "./constants/audio.js";
 import { notes } from "./constants/notes.js";
 
@@ -30,6 +30,8 @@ export function playNote(frequency, velocity = 127) {
     velocityGain.connect(filter);
     filter.frequency.value = filterAmountControl.value;
     filter.type = filterType.value.toLowerCase();
+    filter.Q.value = filterQ.value;
+    filter.gain.value = filterGain.value;
     
     filter.connect(masterVolume);
     noteOscillator.start();

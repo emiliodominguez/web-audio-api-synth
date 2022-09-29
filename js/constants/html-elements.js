@@ -12,6 +12,10 @@ export const filterType = keyboardSetup.querySelector("#filterType");
 
 export const filterAmountControl = keyboardSetup.querySelector("#filterAmount");
 
+export const filterQ = keyboardSetup.querySelector("#filterQ");
+
+export const filterGain = keyboardSetup.querySelector("#filterGain");
+
 export const filterInfo = keyboardSetup.querySelector("#filterInfo");
 
 export const waveFormsWrapper = keyboardSetup.querySelector("#wave-forms");

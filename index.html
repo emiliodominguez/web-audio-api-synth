@@ -28,12 +28,21 @@
                     <option>LowPass</option>
                     <option>BandPass</option>
                     <option>HighPass</option>
+                    <option>LowShelf</option>
+                    <option>HighShelf</option>
+                    <option>Peaking</option>
+                    <option>Notch</option>
                 </select>
-
-
+            
                 <label for="filterAmount">Filter Amount</label>
-                <input type="range" id="filterAmount" min="0" max="20000" step="0.01" value="20000" />
+                <input type="range" id="filterAmount" min="0" max="20000" step="1" value="20000" />
                 <span id="filterInfo">20000hz</span>
+
+                <label for="filterQ">Resonance</label>
+                <input type="range" id="filterQ" min="0.1" max="30" step="0.01" value="0.01" /> <!--More than 30 is too much-->
+
+                <label for="filterGain">Filter Gain</label>
+                <input type="range" id="filterGain" min="-40" max="40" step="0.01" value="0" />
 
                 <div id="wave-forms"></div>
             </div>
