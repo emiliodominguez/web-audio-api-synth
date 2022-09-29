@@ -9,6 +9,12 @@ masterVolume.connect(audioContext.destination);
 // Oscillator
 const mainOscillator = audioContext.createOscillator();
 mainOscillator.frequency.setValueAtTime(220, 0);
-mainOscillator.connect(masterVolume);
 
-export { audioContext, masterVolume, mainOscillator };
+// Filter
+
+const filter = audioContext.createBiquadFilter();
+mainOscillator.connect(filter);
+filter.connect(masterVolume);
+
+
+export { audioContext, masterVolume, mainOscillator, filter };

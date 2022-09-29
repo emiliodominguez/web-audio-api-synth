@@ -1,5 +1,5 @@
-import { keyboardKeys } from "./constants/html-elements.js";
-import { audioContext, masterVolume, mainOscillator } from "./constants/audio.js";
+import { keyboardKeys, filterAmountControl, filterInfo } from "./constants/html-elements.js";
+import { audioContext, masterVolume, mainOscillator, filter } from "./constants/audio.js";
 import { notes } from "./constants/notes.js";
 
 // #region Global mouse handler
@@ -7,6 +7,7 @@ let mouseDown = false;
 
 window.addEventListener("mousedown", () => (mouseDown = true));
 window.addEventListener("mouseup", () => (mouseDown = false));
+filterAmountControl.addEventListener("change", () => filterInfo.textContent = `${filterAmountControl.value}hz`);
 //#endregion
 
 /**
@@ -25,8 +26,11 @@ export function playNote(frequency, velocity = 127) {
     const velocityGain = audioContext.createGain();
     velocityGain.gain.value = velocityGainAmount;
 
-    noteOscillator.connect(velocityGain)
-    velocityGain.connect(masterVolume);
+    noteOscillator.connect(velocityGain);
+    velocityGain.connect(filter);
+    filter.frequency.value = filterAmountControl.value;
+    
+    filter.connect(masterVolume);
     noteOscillator.start();
 
     return noteOscillator;
