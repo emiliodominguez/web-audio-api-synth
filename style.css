@@ -26,6 +26,10 @@ body {
     display: block
 }
 
+.controls #filterAmount {
+    width: 300px
+}
+
 .keys {
     position: relative;
     height: 35%

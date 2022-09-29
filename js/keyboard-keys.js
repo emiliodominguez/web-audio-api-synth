@@ -26,14 +26,21 @@ export function playNote(frequency, velocity = 127) {
     const velocityGain = audioContext.createGain();
     velocityGain.gain.value = velocityGainAmount;
 
-    noteOscillator.connect(velocityGain);
-    velocityGain.connect(filter);
     filter.frequency.value = filterAmountControl.value;
     filter.type = filterType.value.toLowerCase();
     filter.Q.value = filterQ.value;
     filter.gain.value = filterGain.value;
     
+    /*
+    This is to create a reverb effect, but is only working on left channel.
+    
+    const impulse = impulseResponse(1, 2);
+    const convolver = new ConvolverNode(audioContext, {buffer: impulse})    
+    */
+    noteOscillator.connect(velocityGain);
+    velocityGain.connect(filter);
     filter.connect(masterVolume);
+
     noteOscillator.start();
 
     return noteOscillator;
@@ -90,4 +97,15 @@ export function setKeyboardKeys() {
             keyboardKeys.append(key);
         }
     }
+}
+
+function impulseResponse(duration, decay){
+    const length = audioContext.sampleRate * duration;
+    const impulse = audioContext.createBuffer(2, length, audioContext.sampleRate);
+    const myImpulse = impulse.getChannelData(0);
+
+    for(let i = 0; i < length; i++){
+        myImpulse[i] = (2*Math.random() - 1) * Math.pow(1 - i / length, decay); 
+    }
+    return impulse;
 }
