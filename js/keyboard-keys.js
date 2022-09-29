@@ -1,4 +1,4 @@
-import { keyboardKeys, filterAmountControl, filterInfo } from "./constants/html-elements.js";
+import { keyboardKeys, filterAmountControl, filterInfo, filterType } from "./constants/html-elements.js";
 import { audioContext, masterVolume, mainOscillator, filter } from "./constants/audio.js";
 import { notes } from "./constants/notes.js";
 
@@ -8,6 +8,7 @@ let mouseDown = false;
 window.addEventListener("mousedown", () => (mouseDown = true));
 window.addEventListener("mouseup", () => (mouseDown = false));
 filterAmountControl.addEventListener("change", () => filterInfo.textContent = `${filterAmountControl.value}hz`);
+filterType.addEventListener("change", () => console.log(filterType.value.toLowerCase()) )
 //#endregion
 
 /**
@@ -29,6 +30,7 @@ export function playNote(frequency, velocity = 127) {
     noteOscillator.connect(velocityGain);
     velocityGain.connect(filter);
     filter.frequency.value = filterAmountControl.value;
+    filter.type = filterType.value.toLowerCase();
     
     filter.connect(masterVolume);
     noteOscillator.start();

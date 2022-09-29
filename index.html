@@ -22,8 +22,17 @@
                 <label for="delay">Delay</label>
                 <input type="range" id="delay" min="0" max="1" step="0.01" value="0" />
 
+                <br />
+                <label for="filterType">Filter Type</label>
+                <select name="filterType" id="filterType">
+                    <option>LowPass</option>
+                    <option>BandPass</option>
+                    <option>HighPass</option>
+                </select>
+
+
                 <label for="filterAmount">Filter Amount</label>
-                <input type="range" id="filterAmount" min="0" max="16000" step="0.01" value="16000" />
+                <input type="range" id="filterAmount" min="0" max="20000" step="0.01" value="20000" />
                 <span id="filterInfo">16000hz</span>
 
                 <div id="wave-forms"></div>

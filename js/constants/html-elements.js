@@ -8,6 +8,8 @@ export const vibratoSpeedControl = keyboardSetup.querySelector("#vibrato-speed")
 
 export const delayControl = keyboardSetup.querySelector("#delay");
 
+export const filterType = keyboardSetup.querySelector("#filterType");
+
 export const filterAmountControl = keyboardSetup.querySelector("#filterAmount");
 
 export const filterInfo = keyboardSetup.querySelector("#filterInfo");
