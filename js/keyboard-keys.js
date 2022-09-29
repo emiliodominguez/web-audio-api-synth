@@ -8,7 +8,6 @@ let mouseDown = false;
 window.addEventListener("mousedown", () => (mouseDown = true));
 window.addEventListener("mouseup", () => (mouseDown = false));
 filterAmountControl.addEventListener("change", () => filterInfo.textContent = `${filterAmountControl.value}hz`);
-filterType.addEventListener("change", () => console.log(filterType.value.toLowerCase()) )
 //#endregion
 
 /**
