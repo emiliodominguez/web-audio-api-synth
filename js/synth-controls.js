@@ -70,7 +70,7 @@ function setWaveFormsControl() {
         input.checked = mainOscillator.type === input.value;
 
         input.addEventListener("input", (e) => {
-            mainOscillator.type = +e.currentTarget.value;
+            mainOscillator.type = e.currentTarget.value;
         });
     }
 }
