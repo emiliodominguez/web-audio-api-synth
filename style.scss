@@ -15,51 +15,101 @@ body {
     // background-image: radial-gradient(circle, #222, #111);
 }
 
-.keyboard {
-    $width: 1280px;
+.container {
+    $container-width: 1280px;
+    $container-height: 350px;
+    $container-radius: 3px;
 
-    min-width: $width;
-    max-width: $width;
-    height: 40vh;
+    position: relative;
+    min-width: $container-width;
+    max-width: $container-width;
+    height: $container-height;
+    padding-left: 90px;
+    background-image: linear-gradient(#454754, #252531);
     margin: auto;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    &::before,
+    &::after {
+        $aside-width: 30px;
+        $aside-offset: 2px;
+
+        content: "";
+        position: absolute;
+        top: -$aside-offset;
+        width: $aside-width;
+        border-radius: $container-radius * 1.5;
+        height: calc(100% + #{$aside-offset * 2});
+        background-image: url(assets/wood-texture.png);
+        background-size: cover;
+        background-repeat: no-repeat;
+        box-shadow: inset 0 0 $container-height #614a52, inset 0 0 ($container-height * 2) #402e30, inset 0 0 ($container-height * 0.5) rgba(#000, 0.75);
+    }
+
+    &::before {
+        right: 100%;
+        background-position: left;
+    }
+
+    &::after {
+        left: 100%;
+        background-position: center;
+    }
 }
 
-.controls {
-    #wave-forms,
-    #filter-types {
+#keyboard-controls {
+    flex: 1;
+    width: 100%;
+    height: 100%;
+
+    // Temp
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    overflow: auto;
+    color: #fff;
+
+    .control {
         label {
             display: block;
         }
     }
-
-    #filterAmount {
-        width: 500px;
-        background-color: red;
-    }
 }
 
-.keys {
+#keyboard-keys {
     position: relative;
-    height: 35%;
+    width: 100%;
+    height: 40%;
+    text-align: center;
 
     .key {
-        $border: 1px;
-        $radius: 2px;
-        $base-color: #fff;
-        $sharp-color: #333;
+        $key-border: 1px;
+        $key-radius: 2px;
+        $key-base-color: #fff;
+        $key-sharp-color: #333;
 
-        border: none;
-        border: $border solid #333;
-        border-radius: 0 0 $radius $radius;
+        border: $key-border solid #333;
+        border-radius: 0 0 $key-radius $key-radius;
         cursor: pointer;
+
+        &:first-child {
+            border-top-left-radius: $key-radius * 2;
+        }
+
+        &:last-child {
+            border-top-right-radius: $key-radius * 2;
+        }
 
         &:not(&.sharp) {
             width: 2%;
             height: 100%;
-            background-color: $base-color;
+            background-color: $key-base-color;
 
             &.playing {
-                background-image: linear-gradient($base-color, darken($base-color, 5%));
+                background-image: linear-gradient($key-base-color, darken($key-base-color, 5%));
             }
         }
 
@@ -68,10 +118,10 @@ body {
             width: 1%;
             height: 65%;
             transform: translateX(-50%);
-            background-color: $sharp-color;
+            background-color: $key-sharp-color;
 
             &.playing {
-                background-image: linear-gradient($sharp-color, darken($sharp-color, 10%));
+                background-image: linear-gradient($key-sharp-color, darken($key-sharp-color, 10%));
             }
         }
     }
