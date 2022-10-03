@@ -1,0 +1,87 @@
+$control-light-width: 14px;
+$control-light-height: 8px;
+$control-light-off: #666;
+$control-light-on: #ec2045;
+
+#keyboard-controls {
+    flex: 1;
+    width: 100%;
+    height: 100%;
+    padding: 10px;
+    user-select: none;
+
+    // Temp
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    overflow: auto;
+    color: #fff;
+}
+
+.control {
+    label {
+        display: block;
+    }
+
+    &.knob {
+    }
+
+    &.radio {
+        position: relative;
+        gap: 8px;
+        padding: 5px;
+        padding-left: $control-light-width + 8px;
+
+        + .radio {
+            margin-top: 5px;
+        }
+
+        &:has(input:checked) {
+            &::after {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        &::before,
+        &::after {
+            content: "";
+            position: absolute;
+            top: 50%;
+            left: 0;
+            width: $control-light-width;
+            height: $control-light-height;
+            margin-top: $control-light-height * -0.5;
+            border-radius: 2px;
+            order: -1;
+        }
+
+        &::before {
+            background-color: $control-light-off;
+        }
+
+        &::after {
+            background-image: radial-gradient(circle, $control-light-on, darken($control-light-on, 10%));
+            box-shadow: inset 0 0 $control-light-width lighten($control-light-on, 50%), 0 0 4px 2px lighten($control-light-on, 3%), 0 0 8px 2px $control-light-on,
+                0 0 12px darken($control-light-on, 3%);
+            opacity: 0;
+            transform-origin: center;
+            transform: scale(0);
+            transition: transform ease 250ms, opacity ease 250ms;
+        }
+
+        label {
+            font-size: 12px;
+            line-height: 1;
+        }
+
+        input {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+            z-index: 1;
+            cursor: pointer;
+        }
+    }
+}

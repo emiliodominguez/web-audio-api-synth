@@ -1,0 +1,47 @@
+.container {
+    $container-width: 1280px;
+    $container-height: 350px;
+    $container-radius: 3px;
+
+    position: relative;
+    min-width: $container-width;
+    max-width: $container-width;
+    height: $container-height;
+    padding-left: 90px;
+    background-image: linear-gradient(#454754, #252531);
+    box-shadow: 0 5px 15px rgba(#000, 0.4), 0 5px 15px rgba(#000, 0.5);
+    margin: auto;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    &::before,
+    &::after {
+        $aside-width: 30px;
+        $aside-offset: 2px;
+
+        content: "";
+        position: absolute;
+        top: -$aside-offset;
+        width: $aside-width;
+        border-radius: $container-radius * 1.5;
+        height: calc(100% + #{$aside-offset * 2});
+        background-image: url(assets/wood-texture.png);
+        background-size: cover;
+        background-repeat: no-repeat;
+        box-shadow: inset 0 0 $container-height #614a52, inset 0 0 ($container-height * 2) #402e30, inset 0 0 ($container-height * 0.5) rgba(#000, 0.75),
+            0 0 8px rgba(#000, 0.4), 0 0 8px rgba(#000, 0.5);
+    }
+
+    &::before {
+        right: 100%;
+        background-position: left;
+    }
+
+    &::after {
+        left: 100%;
+        background-position: center;
+    }
+}
