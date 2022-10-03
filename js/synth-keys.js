@@ -1,4 +1,4 @@
-import { audioContext, masterVolume, mainOscillator, biQuadFilter } from "./constants/audio.js";
+import { audioContext, masterVolume, mainOscillator, biQuadFilter, vibrato, envelope, delay } from "./constants/audio.js";
 import { keyboardKeys } from "./constants/html-elements.js";
 import { notes } from "./constants/notes.js";
 
@@ -12,12 +12,29 @@ window.addEventListener("mouseup", () => (mouseDown = false));
 /**
  * Plays a note
  * @param {number} frequency The note frequency
+ * @param {number} velocity The note velocity
  * @returns {OscillatorNode} The note oscillator
  */
 export function playNote(frequency, velocity = 127) {
     const noteOscillator = audioContext.createOscillator();
+    const noteGain = audioContext.createGain();
     const velocityGain = audioContext.createGain();
     const velocityGainAmount = (1 / 127) * velocity;
+    const lfoGain = audioContext.createGain();
+    const lfo = audioContext.createOscillator();
+
+    noteGain.gain.setValueAtTime(0, 0);
+    noteGain.gain.linearRampToValueAtTime(envelope.sustainLevel, audioContext.currentTime + envelope.noteLength * envelope.attackTime);
+    noteGain.gain.setValueAtTime(envelope.sustainLevel, audioContext.currentTime + envelope.noteLength - envelope.noteLength * envelope.releaseTime);
+    noteGain.gain.linearRampToValueAtTime(0, audioContext.currentTime + envelope.noteLength);
+
+    lfoGain.gain.setValueAtTime(vibrato.amount, 0);
+    lfoGain.connect(noteOscillator.frequency);
+
+    lfo.frequency.setValueAtTime(vibrato.speed, 0);
+    lfo.start(0);
+    lfo.stop(audioContext.currentTime + envelope.noteLength);
+    lfo.connect(lfoGain);
 
     noteOscillator.type = mainOscillator.type;
     noteOscillator.frequency.value = frequency;
@@ -27,10 +44,15 @@ export function playNote(frequency, velocity = 127) {
     // const impulse = impulseResponse(1, 2);
     // const convolver = new ConvolverNode(audioContext, {buffer: impulse})
 
-    noteOscillator.connect(velocityGain);
     velocityGain.connect(biQuadFilter);
     biQuadFilter.connect(masterVolume);
-    noteOscillator.start();
+
+    noteGain.connect(masterVolume);
+    noteGain.connect(delay);
+
+    noteOscillator.connect(velocityGain);
+    noteOscillator.connect(noteGain);
+    noteOscillator.start(0);
 
     return noteOscillator;
 }
@@ -52,7 +74,7 @@ function handleKeyPress(e) {
  */
 function handleKeyRelease(e, note) {
     e.currentTarget.classList.remove("playing");
-    note[Object.keys(note)[0]]?.stop();
+    note[Object.keys(note)[0]]?.stop(audioContext.currentTime + envelope.noteLength);
 }
 
 /**

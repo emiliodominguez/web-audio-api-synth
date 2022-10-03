@@ -4,17 +4,11 @@ import { playNote } from "./synth-keys.js";
 const pressedNote = {};
 
 function handleInput(input) {
-    const command = input.data[0];
-    const note = input.data[1];
-    const velocity = input.data[2];
+    const [command, note, velocity] = input.data;
 
     switch (command) {
         case 146:
-            if (velocity > 0) {
-                noteOn(note, velocity);
-            } else {
-                noteOff(note, pressedNote);
-            }
+            noteOn(note, velocity > 0 ? velocity : pressedNote);
             break;
         case 130:
             noteOff(note);
@@ -23,8 +17,8 @@ function handleInput(input) {
 }
 
 function noteOn(note, velocity) {
-    const freq = convertMidiToFrequency(note);
-    pressedNote[note.toString()] = playNote(freq, velocity);
+    const frequency = convertMidiToFrequency(note);
+    pressedNote[note.toString()] = playNote(frequency, velocity);
 }
 
 function noteOff(note) {
@@ -54,12 +48,12 @@ function handleSuccess(midiAccess) {
 }
 
 export async function setMidiAccess() {
-    if (!navigator.requestMIDIAccess) return;
+    if (!navigator.requestMIDIAccess) throw new Error();
 
     try {
         const access = await navigator.requestMIDIAccess();
         handleSuccess(access);
     } catch (error) {
-        LogService.info("No MIDI Access");
+        LogService.error("No MIDI Access");
     }
 }
