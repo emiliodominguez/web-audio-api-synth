@@ -11,66 +11,74 @@
         <main class="container">
             <div id="keyboard-controls">
                 <!-- Volume -->
-                <div class="control">
-                    <label for="volume">Volume</label>
-                    <input type="range" id="volume" min="0" max="1" step="0.01" />
+                <div class="controls-group">
+                    <div class="control">
+                        <label for="volume">Volume</label>
+                        <input type="range" id="volume" min="0" max="1" step="0.01" />
+                    </div>
                 </div>
 
                 <!-- Vibrato amount -->
-                <div class="control">
-                    <label for="vibrato-amount">Vibrato amount</label>
-                    <input type="range" id="vibrato-amount" min="0" max="5" step="0.01" value="0" />
-                </div>
+                <div class="controls-group">
+                    <div class="control">
+                        <label for="vibrato-amount">Vibrato amount</label>
+                        <input type="range" id="vibrato-amount" min="0" max="5" step="0.01" value="0" />
+                    </div>
 
-                <!-- Vibrato speed -->
-                <div class="control">
-                    <label for="vibrato-speed">Vibrato speed</label>
-                    <input type="range" id="vibrato-speed" min="0" max="30" step="0.01" value="0" />
-                </div>
+                    <!-- Vibrato speed -->
+                    <div class="control">
+                        <label for="vibrato-speed">Vibrato speed</label>
+                        <input type="range" id="vibrato-speed" min="0" max="30" step="0.01" value="0" />
+                    </div>
 
-                <!-- Delay -->
-                <div class="control">
-                    <label for="delay">Delay</label>
-                    <input type="range" id="delay" min="0" max="1" step="0.01" value="0" />
+                    <!-- Delay -->
+                    <div class="control">
+                        <label for="delay">Delay</label>
+                        <input type="range" id="delay" min="0" max="1" step="0.01" value="0" />
+                    </div>
                 </div>
 
                 <!-- Filter types -->
-                <div class="control">
-                    <label for="lowpass">LowPass<input type="radio" name="filter" value="lowpass" /></label>
-                    <label for="bandpass">BandPass<input type="radio" name="filter" value="bandpass" /></label>
-                    <label for="highpass">HighPass<input type="radio" name="filter" value="highpass" /></label>
-                    <label for="lowshelf">LowShelf<input type="radio" name="filter" value="lowshelf" /></label>
-                    <label for="highshelf">HighShelf<input type="radio" name="filter" value="highshelf" /></label>
-                    <label for="peaking">Peaking<input type="radio" name="filter" value="peaking" /></label>
-                    <label for="notch">Notch<input type="radio" name="filter" value="notch" /></label>
-                </div>
+                <div class="controls-group">
+                    <div class="control">
+                        <label for="lowpass">LowPass<input type="radio" name="filter" value="lowpass" /></label>
+                        <label for="bandpass">BandPass<input type="radio" name="filter" value="bandpass" /></label>
+                        <label for="highpass">HighPass<input type="radio" name="filter" value="highpass" /></label>
+                        <label for="lowshelf">LowShelf<input type="radio" name="filter" value="lowshelf" /></label>
+                        <label for="highshelf">HighShelf<input type="radio" name="filter" value="highshelf" /></label>
+                        <label for="peaking">Peaking<input type="radio" name="filter" value="peaking" /></label>
+                        <label for="notch">Notch<input type="radio" name="filter" value="notch" /></label>
+                    </div>
 
-                <!-- Filter amount -->
-                <div class="control">
-                    <label for="filter-amount">Filter Amount</label>
-                    <input type="range" id="filter-amount" min="50" max="16000" step="1" value="16000" />
-                    <span id="filter-info">16000hz</span>
-                </div>
+                    <!-- Filter amount -->
+                    <div class="control">
+                        <label for="filter-amount">Filter Amount</label>
+                        <input type="range" id="filter-amount" min="50" max="16000" step="1" value="16000" />
+                        <span id="filter-info">16000hz</span>
+                    </div>
 
-                <!-- Resonance -->
-                <div class="control">
-                    <label for="filter-q">Resonance</label>
-                    <!-- Note: more than 30 is too much -->
-                    <input type="range" id="filter-q" min="0.1" max="30" step="0.01" value="0.01" />
-                </div>
+                    <!-- Resonance -->
+                    <div class="control">
+                        <label for="filter-q">Resonance</label>
+                        <!-- Note: more than 30 is too much -->
+                        <input type="range" id="filter-q" min="0.1" max="30" step="0.01" value="0.01" />
+                    </div>
 
-                <!-- Filter gain -->
-                <div class="control">
-                    <label for="filter-gain">Filter Gain</label>
-                    <input type="range" id="filter-gain" min="-40" max="40" step="0.01" value="0" />
+                    <!-- Filter gain -->
+                    <div class="control">
+                        <label for="filter-gain">Filter Gain</label>
+                        <input type="range" id="filter-gain" min="-40" max="40" step="0.01" value="0" />
+                    </div>
                 </div>
 
                 <!-- Wave forms -->
-                <div class="control">
-                    <label for="sine">Sine wave<input type="radio" name="wave-form" value="sine" /></label>
-                    <label for="square">Square wave<input type="radio" name="wave-form" value="square" /></label>
-                    <label for="triangle">Triangle wave<input type="radio" name="wave-form" value="triangle" /></label>
-                    <label for="sawtooth">Sawtooth wave<input type="radio" name="wave-form" value="sawtooth" /></label>
+                <div class="controls-group">
+                    <div class="control">
+                        <label for="sine">Sine wave<input type="radio" name="wave-form" value="sine" /></label>
+                        <label for="square">Square wave<input type="radio" name="wave-form" value="square" /></label>
+                        <label for="triangle">Triangle wave<input type="radio" name="wave-form" value="triangle" /></label>
+                        <label for="sawtooth">Sawtooth wave<input type="radio" name="wave-form" value="sawtooth" /></label>
+                    </div>
                 </div>
             </div>
 
