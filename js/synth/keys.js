@@ -1,6 +1,6 @@
-import { audioContext, masterVolume, mainOscillator, biQuadFilter, vibrato, envelope, delay } from "./constants/audio.js";
-import { keyboardKeys } from "./constants/html-elements.js";
-import { notes } from "./constants/notes.js";
+import { audioContext, masterVolume, mainOscillator, biQuadFilter, vibrato, envelope, delay } from "../constants/audio.js";
+import { keyboardKeys } from "../constants/html-elements.js";
+import { notes } from "../constants/notes.js";
 
 // #region Global mouse handler
 let mouseDown = false;

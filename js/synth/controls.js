@@ -1,5 +1,5 @@
-import { masterVolume, mainOscillator, biQuadFilter, envelope, vibrato, delay, delayAmountGain, feedback } from "./constants/audio.js";
-import { keyboardControls } from "./constants/html-elements.js";
+import { masterVolume, mainOscillator, biQuadFilter, envelope, vibrato, delay, delayAmountGain, feedback } from "../constants/audio.js";
+import { keyboardControls } from "../constants/html-elements.js";
 
 /**
  * Sets the volume control

@@ -1,5 +1,5 @@
-import LogService from "./shared/log-service.js";
-import { playNote } from "./synth-keys.js";
+import LogService from "../shared/log-service.js";
+import { playNote } from "./keys.js";
 
 const pressedNote = {};
 
