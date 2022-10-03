@@ -9,42 +9,55 @@
     </head>
     <body>
         <main class="keyboard">
-            <div id="keyboard-setup" class="controls">
+            <div id="keyboard-controls" class="controls">
+                <!-- Volume -->
                 <label for="volume">Volume</label>
                 <input type="range" id="volume" min="0" max="1" step="0.01" />
 
+                <!-- Vibrato amount -->
                 <label for="vibrato-amount">Vibrato amount</label>
                 <input type="range" id="vibrato-amount" min="0" max="5" step="0.01" value="0" />
 
+                <!-- Vibrato speed -->
                 <label for="vibrato-speed">Vibrato speed</label>
                 <input type="range" id="vibrato-speed" min="0" max="30" step="0.01" value="0" />
 
+                <!-- Delay -->
                 <label for="delay">Delay</label>
                 <input type="range" id="delay" min="0" max="1" step="0.01" value="0" />
 
-                <br />
-                <label for="filterType">Filter Type</label>
-                <select name="filterType" id="filterType">
-                    <option>LowPass</option>
-                    <option>BandPass</option>
-                    <option>HighPass</option>
-                    <option>LowShelf</option>
-                    <option>HighShelf</option>
-                    <option>Peaking</option>
-                    <option>Notch</option>
-                </select>
-            
-                <label for="filterAmount">Filter Amount</label>
-                <input type="range" id="filterAmount" min="50" max="16000" step="1" value="16000" />
-                <span id="filterInfo">16000hz</span>
+                <!-- Filter types -->
+                <div id="filter-types">
+                    <label for="lowpass">LowPass<input type="radio" name="filter" value="lowpass" /></label>
+                    <label for="bandpass">BandPass<input type="radio" name="filter" value="bandpass" /></label>
+                    <label for="highpass">HighPass<input type="radio" name="filter" value="highpass" /></label>
+                    <label for="lowshelf">LowShelf<input type="radio" name="filter" value="lowshelf" /></label>
+                    <label for="highshelf">HighShelf<input type="radio" name="filter" value="highshelf" /></label>
+                    <label for="peaking">Peaking<input type="radio" name="filter" value="peaking" /></label>
+                    <label for="notch">Notch<input type="radio" name="filter" value="notch" /></label>
+                </div>
 
-                <label for="filterQ">Resonance</label>
-                <input type="range" id="filterQ" min="0.1" max="30" step="0.01" value="0.01" /> <!--More than 30 is too much-->
+                <!-- Filter amount -->
+                <label for="filter-amount">Filter Amount</label>
+                <input type="range" id="filter-amount" min="50" max="16000" step="1" value="16000" />
+                <span id="filter-info">16000hz</span>
 
-                <label for="filterGain">Filter Gain</label>
-                <input type="range" id="filterGain" min="-40" max="40" step="0.01" value="0" />
+                <!-- Resonance -->
+                <!-- Note: more than 30 is too much -->
+                <label for="filter-q">Resonance</label>
+                <input type="range" id="filter-q" min="0.1" max="30" step="0.01" value="0.01" />
 
-                <div id="wave-forms"></div>
+                <!-- Filter gain -->
+                <label for="filter-gain">Filter Gain</label>
+                <input type="range" id="filter-gain" min="-40" max="40" step="0.01" value="0" />
+
+                <!-- Wave forms -->
+                <div id="wave-forms">
+                    <label for="sine">Sine wave<input type="radio" name="wave-form" value="sine" /></label>
+                    <label for="square">Square wave<input type="radio" name="wave-form" value="square" /></label>
+                    <label for="triangle">Triangle wave<input type="radio" name="wave-form" value="triangle" /></label>
+                    <label for="sawtooth">Sawtooth wave<input type="radio" name="wave-form" value="sawtooth" /></label>
+                </div>
             </div>
 
             <div id="keyboard-keys" class="keys"></div>

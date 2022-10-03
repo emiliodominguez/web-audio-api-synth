@@ -12,7 +12,7 @@ body {
     display: flex;
     min-height: 100vh;
     font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-    background-image: radial-gradient(circle, #222, #111);
+    // background-image: radial-gradient(circle, #222, #111);
 }
 
 .keyboard {
@@ -25,7 +25,8 @@ body {
 }
 
 .controls {
-    #wave-forms {
+    #wave-forms,
+    #filter-types {
         label {
             display: block;
         }

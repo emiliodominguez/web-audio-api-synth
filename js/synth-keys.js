@@ -1,5 +1,5 @@
-import { keyboardKeys, filterAmountControl, filterInfo, filterType, filterQ, filterGain } from "./constants/html-elements.js";
-import { audioContext, masterVolume, mainOscillator, filter } from "./constants/audio.js";
+import { audioContext, masterVolume, mainOscillator, biQuadFilter } from "./constants/audio.js";
+import { keyboardKeys } from "./constants/html-elements.js";
 import { notes } from "./constants/notes.js";
 
 // #region Global mouse handler
@@ -7,8 +7,7 @@ let mouseDown = false;
 
 window.addEventListener("mousedown", () => (mouseDown = true));
 window.addEventListener("mouseup", () => (mouseDown = false));
-filterAmountControl.addEventListener("change", () => filterInfo.textContent = `${filterAmountControl.value}hz`);
-//#endregion
+// #endregion
 
 /**
  * Plays a note
@@ -17,30 +16,20 @@ filterAmountControl.addEventListener("change", () => filterInfo.textContent = `$
  */
 export function playNote(frequency, velocity = 127) {
     const noteOscillator = audioContext.createOscillator();
-
+    const velocityGain = audioContext.createGain();
     const velocityGainAmount = (1 / 127) * velocity;
 
     noteOscillator.type = mainOscillator.type;
     noteOscillator.frequency.value = frequency;
-    
-    const velocityGain = audioContext.createGain();
     velocityGain.gain.value = velocityGainAmount;
 
-    filter.frequency.value = filterAmountControl.value;
-    filter.type = filterType.value.toLowerCase();
-    filter.Q.value = filterQ.value;
-    filter.gain.value = filterGain.value;
-    
-    /*
-    This is to create a reverb effect, but is only working on left channel.
-    
-    const impulse = impulseResponse(1, 2);
-    const convolver = new ConvolverNode(audioContext, {buffer: impulse})    
-    */
-    noteOscillator.connect(velocityGain);
-    velocityGain.connect(filter);
-    filter.connect(masterVolume);
+    // This is to create a reverb effect, but is only working on left channel.
+    // const impulse = impulseResponse(1, 2);
+    // const convolver = new ConvolverNode(audioContext, {buffer: impulse})
 
+    noteOscillator.connect(velocityGain);
+    velocityGain.connect(biQuadFilter);
+    biQuadFilter.connect(masterVolume);
     noteOscillator.start();
 
     return noteOscillator;
@@ -69,7 +58,7 @@ function handleKeyRelease(e, note) {
 /**
  * Sets the keyboard keys
  */
-export function setKeyboardKeys() {
+export function setSynthKeys() {
     for (const octave of notes) {
         for (const [note, frequency] of Object.entries(octave)) {
             const key = document.createElement("button");
@@ -99,13 +88,14 @@ export function setKeyboardKeys() {
     }
 }
 
-function impulseResponse(duration, decay){
-    const length = audioContext.sampleRate * duration;
-    const impulse = audioContext.createBuffer(2, length, audioContext.sampleRate);
-    const myImpulse = impulse.getChannelData(0);
+// function impulseResponse(duration, decay) {
+//     const length = audioContext.sampleRate * duration;
+//     const impulse = audioContext.createBuffer(2, length, audioContext.sampleRate);
+//     const myImpulse = impulse.getChannelData(0);
 
-    for(let i = 0; i < length; i++){
-        myImpulse[i] = (2*Math.random() - 1) * Math.pow(1 - i / length, decay); 
-    }
-    return impulse;
-}
+//     for (let i = 0; i < length; i++) {
+//         myImpulse[i] = (2 * Math.random() - 1) * Math.pow(1 - i / length, decay);
+//     }
+
+//     return impulse;
+// }
