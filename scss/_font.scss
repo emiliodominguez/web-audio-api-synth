@@ -1,0 +1,29 @@
+@font-face {
+    font-family: "DS Digit";
+    font-weight: normal;
+    src: url(assets/fonts/DS-DIGI.ttf) format("truetype");
+}
+
+@font-face {
+    font-family: "DS Digit";
+    font-weight: bold;
+    src: url(assets/fonts/DS-DIGIB.ttf) format("truetype");
+}
+
+@font-face {
+    font-family: "DS Digit";
+    font-weight: normal;
+    font-style: italic;
+    src: url(assets/fonts/DS-DIGII.ttf) format("truetype");
+}
+
+@font-face {
+    font-family: "DS Digit";
+    font-weight: bold;
+    font-style: italic;
+    src: url(assets/fonts/DS-DIGIT.ttf) format("truetype");
+}
+
+:root {
+    --screen-font: "DS Digit", monospace;
+}

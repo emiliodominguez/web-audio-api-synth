@@ -26,7 +26,7 @@
  */
 
 /**
- * @type {ControlGroup[]}
+ * @type {ControlGroup[]} The synth controls
  */
 export const controlsGroups = Object.freeze([
     {

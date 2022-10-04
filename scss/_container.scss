@@ -1,6 +1,6 @@
 .container {
     $container-width: 1280px;
-    $container-height: 350px;
+    $container-height: 375px;
     $container-radius: 3px;
     $container-h-padding: 15px;
 
@@ -20,7 +20,7 @@
 
     &::before,
     &::after {
-        $aside-width: 30px;
+        $aside-width: 40px;
         $aside-offset: 4px;
 
         content: "";

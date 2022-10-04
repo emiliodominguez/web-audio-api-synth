@@ -1,0 +1,10 @@
+%screen {
+    --screen-glow: 0 0 4px #96ffff, 0 0 8px #96ffff;
+
+    background-color: #222;
+    border: 2px solid #555;
+    letter-spacing: 0.5px;
+    color: #fff;
+    font-family: var(--screen-font);
+    text-shadow: var(--screen-glow);
+}
