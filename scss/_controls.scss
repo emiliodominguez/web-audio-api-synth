@@ -22,12 +22,61 @@ $control-light-on: #ec2045;
 
     label {
         display: block;
+        font-size: 12px;
+        line-height: 1;
+    }
+
+    // &.bar,
+    &.knob {
+        input {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+        }
     }
 
     &.bar {
     }
 
     &.knob {
+        $knob-size: 25px;
+        $knob-offset: 20px;
+        $knob-color: #212023;
+        $knob-indicator-size: $knob-size * 0.15;
+        $knob-indicator-color: #eee;
+
+        + .knob {
+            margin-top: $knob-size + $knob-offset;
+        }
+
+        &::before,
+        &::after {
+            content: "";
+            position: absolute;
+            top: ($knob-size * 0.75);
+            left: 0;
+            width: $knob-size;
+            height: $knob-size;
+            border-radius: 50%;
+        }
+
+        &::before {
+            background-image: radial-gradient(circle, $knob-color, lighten($knob-color, 5%));
+            box-shadow: 0 0 0 1px darken($knob-color, 5%), 0 0 0 1px darken($knob-color, 10%);
+        }
+
+        &::after {
+            top: $knob-size * 0.85;
+            left: $knob-size * 0.5;
+            width: $knob-indicator-size;
+            height: $knob-indicator-size;
+            margin-left: $knob-indicator-size * -0.5;
+            background-color: $knob-indicator-color;
+            // transform-origin: $knob-size * 0.15 $knob-indicator-size;
+            // transform: rotate(45deg);
+        }
     }
 
     &.radio {
@@ -42,7 +91,6 @@ $control-light-on: #ec2045;
         &:has(input:checked) {
             &::after {
                 opacity: 1;
-                transform: scale(1);
             }
         }
 
@@ -68,14 +116,7 @@ $control-light-on: #ec2045;
             box-shadow: inset 0 0 $control-light-width lighten($control-light-on, 50%), 0 0 4px 2px lighten($control-light-on, 3%), 0 0 8px 2px $control-light-on,
                 0 0 12px darken($control-light-on, 3%);
             opacity: 0;
-            transform-origin: center;
-            transform: scale(0);
-            transition: transform ease 250ms, opacity ease 250ms;
-        }
-
-        label {
-            font-size: 12px;
-            line-height: 1;
+            transition: opacity ease 250ms;
         }
 
         input {

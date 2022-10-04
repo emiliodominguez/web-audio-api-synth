@@ -2,12 +2,13 @@
     $container-width: 1280px;
     $container-height: 350px;
     $container-radius: 3px;
+    $container-h-padding: 15px;
 
     position: relative;
     min-width: $container-width;
     max-width: $container-width;
     height: $container-height;
-    padding-left: 90px;
+    padding: 0 $container-h-padding;
     background-image: linear-gradient(#454754, #252531);
     box-shadow: 0 5px 15px rgba(#000, 0.4), 0 5px 15px rgba(#000, 0.5);
     margin: auto;
@@ -20,7 +21,7 @@
     &::before,
     &::after {
         $aside-width: 30px;
-        $aside-offset: 2px;
+        $aside-offset: 4px;
 
         content: "";
         position: absolute;

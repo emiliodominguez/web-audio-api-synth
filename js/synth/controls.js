@@ -4,7 +4,7 @@ import { controlsGroups } from "../constants/controls.js";
 
 /**
  * Sets the control based on its type
- * @param {Control} control The control
+ * @param {RangeControl | RadioControl} control The control
  * @returns {HTMLDivElement | HTMLDivElement[]} The control element(s)
  */
 function setControl(control) {
@@ -20,19 +20,13 @@ function setControl(control) {
             controlLabel.textContent = control.label;
 
             const controlInput = document.createElement("input");
-            controlInput.type = control.type;
+            controlInput.type = "number";
             controlInput.id = control.id;
             controlInput.min = control.min;
             controlInput.max = control.max;
             controlInput.step = control.step;
 
             controlDiv.append(controlLabel, controlInput);
-
-            if (control.showInfo) {
-                const controlInfo = document.createElement("span");
-                controlInfo.id = `${control.id}-info`;
-                controlDiv.append(controlInfo);
-            }
 
             return controlDiv;
         case "radio":
@@ -49,7 +43,7 @@ function setControl(control) {
                 optionLabel.textContent = option.label;
 
                 const optionInput = document.createElement("input");
-                optionInput.type = control.type;
+                optionInput.type = "radio";
                 optionInput.id = option.value;
                 optionInput.name = control.id;
                 optionInput.value = option.value;
@@ -64,10 +58,21 @@ function setControl(control) {
 }
 
 /**
+ * Sets the knobs controls
+ */
+function setKnobs() {
+    const allKnobs = document.querySelectorAll(".knob");
+
+    for (const knob of allKnobs) {
+    }
+}
+
+/**
  * Sets the controls HTML elements
  */
 function setControlsElements() {
-    Object.values(controlsGroups).forEach(({ controls }) => {
+    Object.values(controlsGroups).forEach(({ name, controls }) => {
+        const controlNameComment = document.createComment(name);
         const controlGroupDiv = document.createElement("div");
         controlGroupDiv.classList.add("controls-group");
 
@@ -83,7 +88,7 @@ function setControlsElements() {
             }
         }
 
-        keyboardControls.append(controlGroupDiv);
+        keyboardControls.append(controlNameComment, controlGroupDiv);
     });
 }
 
@@ -93,7 +98,7 @@ function setControlsElements() {
 function setVolumeControl() {
     const volumeControl = keyboardControls.querySelector("#volume");
 
-    volumeControl.value = masterVolume.gain.value;
+    volumeControl.value = +masterVolume.gain.value.toFixed(2);
 
     volumeControl.addEventListener("input", (e) => {
         masterVolume.gain.value = e.currentTarget.value;
@@ -106,7 +111,6 @@ function setVolumeControl() {
 function setFilterControls() {
     const filtersInputs = keyboardControls.querySelectorAll("[name='filter']");
     const filterAmount = keyboardControls.querySelector("#filter-amount");
-    const filterAmountInfo = keyboardControls.querySelector("#filter-amount-info");
     const filterQ = keyboardControls.querySelector("#filter-q");
     const filterGain = keyboardControls.querySelector("#filter-gain");
 
@@ -121,17 +125,15 @@ function setFilterControls() {
 
     // Filter amount
     biQuadFilter.frequency.value = +filterAmount.max;
-    filterAmount.value = biQuadFilter.frequency.value;
-    filterAmountInfo.textContent = `${biQuadFilter.frequency.value}hz`;
+    filterAmount.value = +biQuadFilter.frequency.value.toFixed(2);
 
     filterAmount.addEventListener("input", (e) => {
         biQuadFilter.frequency.value = +e.currentTarget.value;
-        filterAmountInfo.textContent = `${e.currentTarget.value}hz`;
     });
 
     // Filter Q
     biQuadFilter.Q.value = +filterQ.min;
-    filterQ.value = biQuadFilter.Q.value;
+    filterQ.value = +biQuadFilter.Q.value.toFixed(2);
 
     filterQ.addEventListener("input", (e) => {
         biQuadFilter.Q.value = +e.currentTarget.value;
@@ -139,7 +141,7 @@ function setFilterControls() {
 
     // Filter gain
     biQuadFilter.gain.value = 0;
-    filterGain.value = biQuadFilter.gain.value;
+    filterGain.value = +biQuadFilter.gain.value.toFixed(2);
 
     filterGain.addEventListener("input", (e) => {
         biQuadFilter.gain.value = +e.currentTarget.value;
@@ -223,7 +225,7 @@ function setDelayControls() {
 
     // Delay amount
     delayAmountGain.value = 0;
-    delayAmountControl.value = delayAmountGain.value;
+    delayAmountControl.value = +delayAmountGain.value.toFixed(2);
 
     delayAmountControl.addEventListener("input", (e) => {
         delayAmountGain.value = +e.currentTarget.value;
@@ -231,7 +233,7 @@ function setDelayControls() {
 
     // Delay time
     delay.delayTime.value = 0;
-    delayTimeControl.value = delay.delayTime.value;
+    delayTimeControl.value = +delay.delayTime.value.toFixed(2);
 
     delayTimeControl.addEventListener("input", (e) => {
         delay.delayTime.value = +e.currentTarget.value;
@@ -239,7 +241,7 @@ function setDelayControls() {
 
     // Feedback
     feedback.gain.value = 0;
-    feedbackControl.value = feedback.gain.value;
+    feedbackControl.value = +feedback.gain.value.toFixed(2);
 
     feedbackControl.addEventListener("input", (e) => {
         feedback.gain.value = +e.currentTarget.value;
@@ -251,6 +253,7 @@ function setDelayControls() {
  */
 export function setSynthControls() {
     setControlsElements();
+    setKnobs();
     setVolumeControl();
     setFilterControls();
     setWaveFormsControl();
