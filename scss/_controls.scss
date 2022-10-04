@@ -10,23 +10,27 @@ $control-light-on: #ec2045;
     padding: 10px;
     user-select: none;
 
-    // Temp
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+    grid-gap: 25px;
     overflow: auto;
-    color: #fff;
 }
 
 .control {
+    position: relative;
+    color: #eee;
+
     label {
         display: block;
+    }
+
+    &.bar {
     }
 
     &.knob {
     }
 
     &.radio {
-        position: relative;
         gap: 8px;
         padding: 5px;
         padding-left: $control-light-width + 8px;

@@ -12,9 +12,32 @@
             <div id="keyboard-controls">
                 <!-- Volume -->
                 <div class="controls-group">
-                    <div class="control knob">
+                    <div class="control bar">
                         <label for="volume">Volume</label>
                         <input type="range" id="volume" min="0" max="1" step="0.01" />
+                    </div>
+                </div>
+
+                <!-- Wave forms -->
+                <div class="controls-group">
+                    <div class="control radio">
+                        <label for="sine">Sine wave</label>
+                        <input type="radio" name="wave-form" value="sine" />
+                    </div>
+
+                    <div class="control radio">
+                        <label for="square">Square wave</label>
+                        <input type="radio" name="wave-form" value="square" />
+                    </div>
+
+                    <div class="control radio">
+                        <label for="triangle">Triangle wave</label>
+                        <input type="radio" name="wave-form" value="triangle" />
+                    </div>
+
+                    <div class="control radio">
+                        <label for="sawtooth">Sawtooth wave</label>
+                        <input type="radio" name="wave-form" value="sawtooth" />
                     </div>
                 </div>
 
@@ -76,29 +99,6 @@
                     <div class="control knob">
                         <label for="filter-gain">Filter Gain</label>
                         <input type="range" id="filter-gain" min="-40" max="40" step="0.01" />
-                    </div>
-                </div>
-
-                <!-- Wave forms -->
-                <div class="controls-group">
-                    <div class="control radio">
-                        <label for="sine">Sine wave </label>
-                        <input type="radio" name="wave-form" value="sine" />
-                    </div>
-
-                    <div class="control radio">
-                        <label for="square">Square wave </label>
-                        <input type="radio" name="wave-form" value="square" />
-                    </div>
-
-                    <div class="control radio">
-                        <label for="triangle">Triangle wave </label>
-                        <input type="radio" name="wave-form" value="triangle" />
-                    </div>
-
-                    <div class="control radio">
-                        <label for="sawtooth">Sawtooth wave </label>
-                        <input type="radio" name="wave-form" value="sawtooth" />
                     </div>
                 </div>
 

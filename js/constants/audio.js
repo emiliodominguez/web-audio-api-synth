@@ -16,7 +16,7 @@ const biQuadFilter = audioContext.createBiquadFilter();
 // Envelope
 const envelope = Object.seal({
     attackTime: 0,
-    sustainLevel: 0,
+    sustainLevel: 0.8,
     releaseTime: 0,
     noteLength: 0,
 });
