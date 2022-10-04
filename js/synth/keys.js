@@ -71,7 +71,7 @@ function handleKeyPress(e) {
  */
 function handleKeyRelease(e, note) {
     e.currentTarget.classList.remove("playing");
-    note[Object.keys(note)[0]]?.stop(audioContext.currentTime + envelope.noteLength);
+    Object.values(note).forEach((x) => x?.stop(audioContext.currentTime + envelope.noteLength));
 }
 
 /**

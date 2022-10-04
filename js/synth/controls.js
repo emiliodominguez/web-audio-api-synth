@@ -1,5 +1,91 @@
 import { masterVolume, mainOscillator, biQuadFilter, envelope, vibrato, delay, delayAmountGain, feedback } from "../constants/audio.js";
 import { keyboardControls } from "../constants/html-elements.js";
+import { controlsGroups } from "../constants/controls.js";
+
+/**
+ * Sets the control based on its type
+ * @param {Control} control The control
+ * @returns {HTMLDivElement | HTMLDivElement[]} The control element(s)
+ */
+function setControl(control) {
+    switch (control.type) {
+        case "range":
+            const controlDiv = document.createElement("div");
+            controlDiv.classList.add("control");
+
+            if (control.class) controlDiv.classList.add(control.class);
+
+            const controlLabel = document.createElement("label");
+            controlLabel.htmlFor = control.id;
+            controlLabel.textContent = control.label;
+
+            const controlInput = document.createElement("input");
+            controlInput.type = control.type;
+            controlInput.id = control.id;
+            controlInput.min = control.min;
+            controlInput.max = control.max;
+            controlInput.step = control.step;
+
+            controlDiv.append(controlLabel, controlInput);
+
+            if (control.showInfo) {
+                const controlInfo = document.createElement("span");
+                controlInfo.id = `${control.id}-info`;
+                controlDiv.append(controlInfo);
+            }
+
+            return controlDiv;
+        case "radio":
+            const controls = [];
+
+            for (const option of control.options) {
+                const optionDiv = document.createElement("div");
+                optionDiv.classList.add("control");
+
+                if (control.class) optionDiv.classList.add(control.class);
+
+                const optionLabel = document.createElement("label");
+                optionLabel.htmlFor = option.value;
+                optionLabel.textContent = option.label;
+
+                const optionInput = document.createElement("input");
+                optionInput.type = control.type;
+                optionInput.id = option.value;
+                optionInput.name = control.id;
+                optionInput.value = option.value;
+
+                optionDiv.append(optionLabel, optionInput);
+
+                controls.push(optionDiv);
+            }
+
+            return controls;
+    }
+}
+
+/**
+ * Sets the controls HTML elements
+ */
+function setControlsElements() {
+    Object.values(controlsGroups).forEach(({ controls }) => {
+        const controlGroupDiv = document.createElement("div");
+        controlGroupDiv.classList.add("controls-group");
+
+        for (const control of controls) {
+            const controlElements = setControl(control);
+
+            if (controlElements instanceof HTMLDivElement) {
+                controlGroupDiv.append(controlElements);
+            } else {
+                for (const element of controlElements) {
+                    controlGroupDiv.append(element);
+                }
+            }
+        }
+
+        keyboardControls.append(controlGroupDiv);
+    });
+}
 
 /**
  * Sets the volume control
@@ -20,9 +106,9 @@ function setVolumeControl() {
 function setFilterControls() {
     const filtersInputs = keyboardControls.querySelectorAll("[name='filter']");
     const filterAmount = keyboardControls.querySelector("#filter-amount");
+    const filterAmountInfo = keyboardControls.querySelector("#filter-amount-info");
     const filterQ = keyboardControls.querySelector("#filter-q");
     const filterGain = keyboardControls.querySelector("#filter-gain");
-    const filterInfo = keyboardControls.querySelector("#filter-info");
 
     // Filters
     for (const input of filtersInputs) {
@@ -36,11 +122,11 @@ function setFilterControls() {
     // Filter amount
     biQuadFilter.frequency.value = +filterAmount.max;
     filterAmount.value = biQuadFilter.frequency.value;
-    filterInfo.textContent = `${biQuadFilter.frequency.value}hz`;
+    filterAmountInfo.textContent = `${biQuadFilter.frequency.value}hz`;
 
     filterAmount.addEventListener("input", (e) => {
         biQuadFilter.frequency.value = +e.currentTarget.value;
-        filterInfo.textContent = `${e.currentTarget.value}hz`;
+        filterAmountInfo.textContent = `${e.currentTarget.value}hz`;
     });
 
     // Filter Q
@@ -164,6 +250,7 @@ function setDelayControls() {
  * Initializes the keyboard setup
  */
 export function setSynthControls() {
+    setControlsElements();
     setVolumeControl();
     setFilterControls();
     setWaveFormsControl();
