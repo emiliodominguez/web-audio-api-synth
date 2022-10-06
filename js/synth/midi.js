@@ -1,5 +1,6 @@
 import LogService from "../shared/log-service.js";
 import { playNote } from "./keys.js";
+import { updateScreen } from "./screen.js";
 
 const pressedNote = {};
 
@@ -45,6 +46,7 @@ function handleSuccess(midiAccess) {
     });
 
     LogService.success("MIDI Access available");
+    updateScreen("midiAccess", "MIDI Access available");
 }
 
 export async function setMidiAccess() {
@@ -55,5 +57,6 @@ export async function setMidiAccess() {
         handleSuccess(access);
     } catch (error) {
         LogService.error("No MIDI Access");
+        updateScreen("midiAccess", "No MIDI Access");
     }
 }

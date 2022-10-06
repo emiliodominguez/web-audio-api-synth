@@ -1,8 +1,10 @@
 {
     "scripts": {
         "serve": "live-server --port=3000",
-        "sass": "sass scss/main.scss style.css --watch --no-source-map --style=compressed",
-        "dev": "npm-run-all --parallel serve sass"
+        "sass:watch": "sass scss/main.scss style.css --watch --no-source-map --style=compressed",
+        "sass": "sass scss/main.scss style.css --no-source-map --style=compressed",
+        "dev": "npm-run-all --parallel serve sass:watch",
+        "start": "npm-run-all --parallel serve sass"
     },
     "devDependencies": {
         "live-server": "^1.2.2",

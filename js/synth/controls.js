@@ -1,6 +1,7 @@
 import { masterVolume, mainOscillator, biQuadFilter, envelope, vibrato, delay, delayAmountGain, feedback } from "../constants/audio.js";
 import { keyboardControls } from "../constants/html-elements.js";
 import { controlsGroups } from "../constants/controls.js";
+import { updateScreen } from "./screen.js";
 
 /**
  * Sets the control based on its type
@@ -9,6 +10,7 @@ import { controlsGroups } from "../constants/controls.js";
  */
 function setControl(control) {
     switch (control.type) {
+        case "knob":
         case "range":
             const controlDiv = document.createElement("div");
             controlDiv.classList.add("control");
@@ -20,7 +22,7 @@ function setControl(control) {
             controlLabel.textContent = control.label;
 
             const controlInput = document.createElement("input");
-            controlInput.type = "number";
+            controlInput.type = control.type === "knob" ? "number" : "range";
             controlInput.id = control.id;
             controlInput.min = control.min;
             controlInput.max = control.max;
@@ -99,9 +101,11 @@ function setVolumeControl() {
     const volumeControl = keyboardControls.querySelector("#volume");
 
     volumeControl.value = +masterVolume.gain.value.toFixed(2);
+    updateScreen("volume", `Volume: ${parseInt(+masterVolume.gain.value.toFixed(2) * 100)}%`);
 
     volumeControl.addEventListener("input", (e) => {
         masterVolume.gain.value = e.currentTarget.value;
+        updateScreen("volume", `Volume: ${parseInt(e.currentTarget.value * 100)}%`);
     });
 }
 

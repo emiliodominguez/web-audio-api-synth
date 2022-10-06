@@ -90,6 +90,7 @@ $control-light-on: #ec2045;
             margin-left: auto;
             padding: 4px;
             border-radius: 4px;
+            -moz-appearance: textfield;
 
             &::-webkit-outer-spin-button,
             &::-webkit-inner-spin-button {
@@ -97,8 +98,8 @@ $control-light-on: #ec2045;
                 margin: 0;
             }
 
-            &[type="number"] {
-                -moz-appearance: textfield;
+            &:focus {
+                outline: none;
             }
         }
     }
