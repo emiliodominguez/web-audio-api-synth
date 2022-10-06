@@ -46,7 +46,7 @@ function handleSuccess(midiAccess) {
     });
 
     LogService.success("MIDI Access available");
-    updateScreen("midiAccess", "MIDI Access available");
+    updateScreen("midiAccess", "MIDI Access: available");
 }
 
 export async function setMidiAccess() {
@@ -56,7 +56,7 @@ export async function setMidiAccess() {
         const access = await navigator.requestMIDIAccess();
         handleSuccess(access);
     } catch (error) {
-        LogService.error("No MIDI Access");
-        updateScreen("midiAccess", "No MIDI Access");
+        LogService.error("MIDI Access unavailable");
+        updateScreen("midiAccess", "MIDI Access: unavailable");
     }
 }

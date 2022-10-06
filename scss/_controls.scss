@@ -4,6 +4,11 @@ $control-light-width: 14px;
 $control-light-height: 8px;
 $control-light-off: #666;
 $control-light-on: #ec2045;
+$indicator-size: 25px;
+$indicator-offset: 10px;
+$indicator-color: #212023;
+$indicator-indicator-size: $indicator-size * 0.15;
+$indicator-indicator-color: $control-light-on;
 
 #keyboard-controls {
     flex: 1;
@@ -30,50 +35,74 @@ $control-light-on: #ec2045;
     }
 
     &.bar {
+        input {
+            @extend %screen;
+
+            -webkit-appearance: none;
+            appearance: none;
+            width: 100%;
+            height: $indicator-size * 0.75;
+            outline: none;
+            margin-top: 8px;
+
+            &::-webkit-slider-thumb {
+                -webkit-appearance: none;
+                appearance: none;
+                width: $indicator-size * 0.75;
+                height: $indicator-size * 0.75;
+                background-image: radial-gradient(circle, $control-light-on, darken($control-light-on, 10%));
+                box-shadow: inset 0 0 $control-light-width lighten($control-light-on, 50%), 0 0 4px 2px lighten($control-light-on, 3%), 0 0 8px 2px $control-light-on,
+                    0 0 12px darken($control-light-on, 3%);
+                cursor: pointer;
+            }
+
+            &::-moz-range-thumb {
+                width: $indicator-size * 0.75;
+                height: $indicator-size * 0.75;
+                background-image: radial-gradient(circle, $control-light-on, darken($control-light-on, 10%));
+                box-shadow: inset 0 0 $control-light-width lighten($control-light-on, 50%), 0 0 4px 2px lighten($control-light-on, 3%), 0 0 8px 2px $control-light-on,
+                    0 0 12px darken($control-light-on, 3%);
+                cursor: pointer;
+            }
+        }
     }
 
     &.knob {
-        $knob-size: 25px;
-        $knob-offset: 10px;
-        $knob-color: #212023;
-        $knob-indicator-size: $knob-size * 0.15;
-        $knob-indicator-color: $control-light-on;
-
         display: flex;
         flex-wrap: wrap;
         align-items: center;
         gap: 4px;
 
         + .knob {
-            margin-top: $knob-size + $knob-offset;
+            margin-top: $indicator-size + $indicator-offset;
         }
 
         &::before,
         &::after {
             content: "";
             position: absolute;
-            top: ($knob-size * 0.65);
+            top: ($indicator-size * 0.65);
             left: 0;
-            width: $knob-size;
-            height: $knob-size;
+            width: $indicator-size;
+            height: $indicator-size;
             border-radius: 50%;
         }
 
         &::before {
-            background-image: radial-gradient(circle, $knob-color, lighten($knob-color, 5%));
-            box-shadow: 0 0 0 1px darken($knob-color, 5%), 0 0 0 1px darken($knob-color, 10%);
+            background-image: radial-gradient(circle, $indicator-color, lighten($indicator-color, 5%));
+            box-shadow: 0 0 0 1px darken($indicator-color, 5%), 0 0 0 1px darken($indicator-color, 10%);
         }
 
         &::after {
-            top: $knob-size * 0.85;
-            left: $knob-size * 0.5;
-            width: $knob-indicator-size;
-            height: $knob-indicator-size;
-            margin-left: $knob-indicator-size * -0.5;
-            background-color: $knob-indicator-color;
-            box-shadow: inset 0 0 $knob-indicator-size lighten($knob-indicator-color, 50%), 0 0 4px 2px lighten($knob-indicator-color, 3%), 0 0 6px 2px $knob-indicator-color,
-                0 0 8px darken($knob-indicator-color, 3%);
-            // transform-origin: $knob-size * 0.15 $knob-indicator-size;
+            top: $indicator-size * 0.85;
+            left: $indicator-size * 0.5;
+            width: $indicator-indicator-size;
+            height: $indicator-indicator-size;
+            margin-left: $indicator-indicator-size * -0.5;
+            background-color: $indicator-indicator-color;
+            box-shadow: inset 0 0 $indicator-indicator-size lighten($indicator-indicator-color, 50%), 0 0 4px 2px lighten($indicator-indicator-color, 3%),
+                0 0 6px 2px $indicator-indicator-color, 0 0 8px darken($indicator-indicator-color, 3%);
+            // transform-origin: $indicator-size * 0.15 $indicator-indicator-size;
             // transform: rotate(45deg);
         }
 
@@ -86,7 +115,7 @@ $control-light-on: #ec2045;
             @extend %screen;
 
             width: 100%;
-            max-width: calc(100% - #{$knob-size + $knob-offset});
+            max-width: calc(100% - #{$indicator-size + $indicator-offset});
             margin-left: auto;
             padding: 4px;
             border-radius: 4px;
