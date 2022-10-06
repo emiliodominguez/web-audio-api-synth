@@ -50,9 +50,8 @@ function handleSuccess(midiAccess) {
 }
 
 export async function setMidiAccess() {
-    if (!navigator.requestMIDIAccess) throw new Error();
-
     try {
+        if (!navigator.requestMIDIAccess) throw new Error();
         const access = await navigator.requestMIDIAccess();
         handleSuccess(access);
     } catch (error) {

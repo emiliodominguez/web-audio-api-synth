@@ -7,8 +7,6 @@ $control-light-on: #ec2045;
 $indicator-size: 25px;
 $indicator-offset: 10px;
 $indicator-color: #212023;
-$indicator-indicator-size: $indicator-size * 0.15;
-$indicator-indicator-color: $control-light-on;
 
 #keyboard-controls {
     flex: 1;
@@ -50,6 +48,7 @@ $indicator-indicator-color: $control-light-on;
                 appearance: none;
                 width: $indicator-size * 0.75;
                 height: $indicator-size * 0.75;
+                border-radius: 5px;
                 background-image: radial-gradient(circle, $control-light-on, darken($control-light-on, 10%));
                 box-shadow: inset 0 0 $control-light-width lighten($control-light-on, 50%), 0 0 4px 2px lighten($control-light-on, 3%), 0 0 8px 2px $control-light-on,
                     0 0 12px darken($control-light-on, 3%);
@@ -59,6 +58,7 @@ $indicator-indicator-color: $control-light-on;
             &::-moz-range-thumb {
                 width: $indicator-size * 0.75;
                 height: $indicator-size * 0.75;
+                border-radius: 5px;
                 background-image: radial-gradient(circle, $control-light-on, darken($control-light-on, 10%));
                 box-shadow: inset 0 0 $control-light-width lighten($control-light-on, 50%), 0 0 4px 2px lighten($control-light-on, 3%), 0 0 8px 2px $control-light-on,
                     0 0 12px darken($control-light-on, 3%);
@@ -81,28 +81,31 @@ $indicator-indicator-color: $control-light-on;
         &::after {
             content: "";
             position: absolute;
-            top: ($indicator-size * 0.65);
-            left: 0;
-            width: $indicator-size;
-            height: $indicator-size;
             border-radius: 50%;
         }
 
         &::before {
+            top: ($indicator-size * 0.65);
+            left: 0;
+            width: $indicator-size;
+            height: $indicator-size;
             background-image: radial-gradient(circle, $indicator-color, lighten($indicator-color, 5%));
             box-shadow: 0 0 0 1px darken($indicator-color, 5%), 0 0 0 1px darken($indicator-color, 10%);
         }
 
         &::after {
+            $knob-indicator-size: $indicator-size * 0.15;
+            $knob-indicator-color: $control-light-on;
+
             top: $indicator-size * 0.85;
             left: $indicator-size * 0.5;
-            width: $indicator-indicator-size;
-            height: $indicator-indicator-size;
-            margin-left: $indicator-indicator-size * -0.5;
-            background-color: $indicator-indicator-color;
-            box-shadow: inset 0 0 $indicator-indicator-size lighten($indicator-indicator-color, 50%), 0 0 4px 2px lighten($indicator-indicator-color, 3%),
-                0 0 6px 2px $indicator-indicator-color, 0 0 8px darken($indicator-indicator-color, 3%);
-            // transform-origin: $indicator-size * 0.15 $indicator-indicator-size;
+            width: $knob-indicator-size;
+            height: $knob-indicator-size;
+            margin-left: $knob-indicator-size * -0.5;
+            background-color: $knob-indicator-color;
+            box-shadow: inset 0 0 $knob-indicator-size lighten($knob-indicator-color, 50%), 0 0 4px 2px lighten($knob-indicator-color, 3%), 0 0 6px 2px $knob-indicator-color,
+                0 0 8px darken($knob-indicator-color, 3%);
+            // transform-origin: $indicator-size * 0.15 $knob-indicator-size;
             // transform: rotate(45deg);
         }
 
@@ -118,12 +121,13 @@ $indicator-indicator-color: $control-light-on;
             max-width: calc(100% - #{$indicator-size + $indicator-offset});
             margin-left: auto;
             padding: 4px;
-            border-radius: 4px;
             -moz-appearance: textfield;
+            appearance: textfield;
 
             &::-webkit-outer-spin-button,
             &::-webkit-inner-spin-button {
                 -webkit-appearance: none;
+                appearance: none;
                 margin: 0;
             }
 
